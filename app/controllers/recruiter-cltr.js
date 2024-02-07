@@ -30,7 +30,7 @@ recruiterCltr.editProfile = async (req, res) => {
       { creator: userId },
       body,
       { new: true, runValidators: true }
-    );
+    ).populate("creator", ["_id", "userName", "email", "role"]);
     res.json(recruiter);
   } catch (e) {
     res.status(500).json(e.message);
@@ -58,7 +58,14 @@ recruiterCltr.create = async (req, res) => {
         .json({ errors: [{ msg: "Profile already created" }] });
     }
     await recruiter.save();
-    res.json({ message: "profile created successfully", recruiter });
+    const populatedRecruiter = await Recruiter.findById(recruiter._id).populate(
+      "creator",
+      ["_id", "userName", "email"]
+    );
+    res.json({
+      message: "profile created successfully",
+      recruiter: populatedRecruiter,
+    });
   } catch (e) {
     res.status(500).json(e.message);
   }
