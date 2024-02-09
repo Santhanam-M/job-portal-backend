@@ -114,7 +114,7 @@ applicationCltr.changeStatus = async (req, res) => {
       },
     });
 
-    if (req.body.status === "shortlisted") {
+    if (req.body.status === "ShortListed") {
       const findJobRole = await Job.findById(application.job);
 
       const transporter = nodemailer.createTransport({
