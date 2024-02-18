@@ -66,8 +66,6 @@ applicationCltr.show = async (req, res) => {
     let user;
     let applications;
 
-    console.log(req.user.role);
-
     if (req.user.role === "applicant") {
       user = await Applicant.findOne({ creator: req.user.id });
       applications = await Application.find({
@@ -75,7 +73,6 @@ applicationCltr.show = async (req, res) => {
       }).populate("job", ["title", "skills", "location", "experience"]);
     } else if (req.user.role === "recruiter") {
       user = await Recruiter.findOne({ creator: req.user.id });
-      console.log(user);
       applications = await Application.find({
         recruiter: user._id,
       }).populate("applicant", ["experience"]);

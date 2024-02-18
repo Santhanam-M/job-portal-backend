@@ -49,7 +49,6 @@ resumeCltr.remove = async (req, res) => {
       _id: id,
       creator: applicant._id,
     });
-    console.log("resume", resume);
     if (!resume) {
       return res
         .status(404)
