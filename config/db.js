@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const configureDB = async () => {
-  const url = process.env.DB_URL || "mongodb://127.0.0.1:27017";
-  const name = process.env.DB_NAME || "job-portal";
+  const url = process.env.DB_URL
 
   try {
-    await mongoose.connect(`${url}/${name}`);
-    console.log("connect to db", name);
+    await mongoose.connect(`${url}`);
+    console.log("connect to db");
   } catch (e) {
     console.log("error connection to db", e.message);
   }
